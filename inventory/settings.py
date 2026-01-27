@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #pip
     'crispy_forms',
     'crispy_bootstrap5',
+    'corsheaders',
 
     # local
     'store.apps.StoreConfig',
