@@ -11,6 +11,10 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    gcc \
+    pkg-config \
+    default-libmysqlclient-dev \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better layer caching
