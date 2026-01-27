@@ -1,0 +1,16 @@
+.git
+.gitignore
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.vscode/
+.idea/
+db.sqlite3
+*.log
