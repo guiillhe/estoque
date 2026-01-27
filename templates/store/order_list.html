@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Order List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Pedidos</a></li>
+                            <li class="active">Lista</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Lista de Pedidos</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Responsável Entrega</th>
+                                <th>Solicitante</th>
+                                <th>Quantidade de Produtos</th>                                
+                                <th>Data do Pedido</th>
+                                <th> Data Entrega</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if order %}
+                            {% for order in order %}
+                            <tr>
+                                <td class="serial">{{ order.id }}</td>
+                                {% if order.supplier %}
+                                <td>{{ order.supplier }}</td>
+                                {% else %}
+                                <td>--</td>
+                                {% endif %}
+                                <td>{{ order.buyer }}</td>
+                                <td>{{ order.item_count }}</td>
+                                <td>{{ order.created_date }}</td>  
+                                {% if order.delivered_date %}
+                                <td>{{ order.delivered_date }}
+                                {% else %}
+                                <td>--</td>
+                                {% endif %}                                                             
+                                <td>
+                                    {% if order.status == 'pending' %}
+                                        <a class="btn btn-warning" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'decline' %}
+                                        <a class="btn btn-danger" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'complete' %}
+                                        <a class="btn btn-success" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'approved' %}
+                                        <a class="btn btn-primary" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'bulk' %}
+                                        <a class="btn btn-secondary" href="">{{ order.status }}</a>
+                                    {% else %}
+                                        <a class="btn btn-info" href="">{{ order.status }}</a>
+                                    {% endif %}
+                                </td>
+                                {% if order.status == 'pending' or order.status == 'approved' %}
+                                    <td>
+                                        <a class="btn btn-info" href="{% url 'order-detail' order.id %}">
+                                            <i class="bi bi-eye"></i> Atender
+                                        </a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a class="btn btn-info" href="{% url 'order-detail' order.id %}">
+                                            <i class="bi bi-eye"></i> Detalhes
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Order Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

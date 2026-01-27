@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Buyer List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Colaborador</a></li>
+                            <li class="active">Lista</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Lista de colaboradores </h4>                
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                                <th>Email</th>
+                                <th>Funcao</th>
+                                <th>Setor</th>
+                                <th>Acao</th>                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if buyer %}
+                            {% for buyer in buyer %}                            
+                            <tr>
+                                <td class="serial">{{ buyer.id }}</td>
+                                <td>{{ buyer.name }}</td>
+                                <td>{{ buyer.address }}</td>
+                                <td>{{ buyer.user.email }}</td>
+                                <td>{{ buyer.function }}</td>
+                                <td>{{ buyer.setor }}</td>
+                                <td>
+                                    <a href="{% url 'buyer_edit' buyer.id %}"><button class="btn btn-primary btn-sm">Edit</button></a>
+                                    <a href="{% url 'delete-buyer' buyer.id %}"><button class="btn btn-danger btn-sm">Delete</button></a>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Buyer Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Order List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="order-list">Pedidos</a></li>
+                            <li><a href="#">Detalhes</a></li>
+                            <li class="active">Lista</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Detalhes do Pedido {{ order.id }} do Solicitante {{ order.buyer }}</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table id="order-detail-table" class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">Item Nº</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Tamanho</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if details %}
+                            {% for detail in details %}
+                            <tr>
+                                <td class="serial-{{ forloop.counter }}">{{ forloop.counter }}</td>
+                                <td class="name-{{ forloop.counter }}"> {{ detail.product.name }} </td>
+                                <td class="quantity-{{ forloop.counter }}"> {{ detail.quantity }} </td>
+                                <td class="size-{{ forloop.counter }}">
+                                    {% if detail.product.show_size %}
+                                    Tamanho: {{ detail.product.size }}
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Order Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+    {% if 'mensagem_erro' != 'zero' %}
+            <div class="alert alert-danger flex-grow-1" role="alert">
+                {{ mensagem_erro }}
+            </div>
+            <a href="{% url 'delete-order' order.id %}" class="btn btn-danger flex-grow-1 mb-3">
+                <i class="bi bi-arrow-left"></i> Ou clique aqui para cancelar
+            </a>
+    {% endif %}
+
+    <div id="order-detail-buttons" class="col-md-12 mb-3">
+        <div class="d-flex gap-2">
+            {% if order.status == 'pending' and 'mensagem_erro' == 'zero' %}
+            <form action="{% url 'order-detail' order.id %}" method="post" novalidate="novalidate" class="flex-grow-1">
+                {% csrf_token %}
+                <button  type="submit" class="btn btn-primary w-100" onclick="return confirmProcess()">
+                    <i class="bi bi-pencil"></i> Processar Pedido
+                </button>
+            </form>
+            <form action="{% url 'delete-order' order.id %}" method="post" id="cancel-form" class="flex-grow-1">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100" onclick="return confirmDelete()">
+                    <i class="bi bi-trash"></i> Cancelar Pedido
+                </button>
+            </form>
+            
+            {% endif %}
+            <a href="{% url 'order-list' %}" class="btn btn-secondary flex-grow-1">
+                <i class="bi bi-arrow-left"></i> Voltar para Lista
+            </a>            
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+
+{% block extra_scripts %}
+<!-- Adicione scripts extras aqui, se necessário -->
+<script>
+function confirmDelete() {
+    // Mostra diálogo de confirmação
+    const confirmed = confirm("Tem certeza que deseja excluir este pedido?\n\nEsta ação não pode ser desfeita!");
+    
+    // Se o usuário clicar em "Cancelar", retorna false
+    // Isso PREVINE o envio do formulário
+    if (!confirmed) {
+        return false;  // ⚠️ INTERROMPE o processamento
+    }
+    
+    // Se confirmar, continua normalmente
+    return true;  // ✅ Permite o envio
+}
+
+function confirmProcess() {
+    // Mostra diálogo de confirmação
+    const confirmed = confirm("Tem certeza que deseja processar este pedido?\n\nEsta ação não pode ser desfeita!");
+    
+    // Se o usuário clicar em "Cancelar", retorna false
+    // Isso PREVINE o envio do formulário
+    if (!confirmed) {
+        return false;  // ⚠️ INTERROMPE o processamento
+    }
+    
+    // Se confirmar, continua normalmente
+    return true;  // ✅ Permite o envio
+}
+</script>
+{% endblock extra_scripts %}

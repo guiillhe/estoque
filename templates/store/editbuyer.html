@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Editar Colaborador{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Colaborador</a></li>
+                            <li class="active">Editar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Editar Colaborador</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <p>Edite os dados do colaborador {{buyer.id}} e clique em salvar.</p>
+                        <form action="{% url 'buyer_edit' buyer.id %}" method="post" novalidate="novalidate">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
+                                    <span id="payment-button-amount">Salvar</span>
+                                </button>
+                                <a href="{% url 'buyer-list' %}" class="btn btn-lg btn-secondary btn-block">
+                                    <span id="payment-button-amount">Cancelar</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+{% endblock content %}

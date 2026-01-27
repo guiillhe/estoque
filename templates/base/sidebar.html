@@ -1,0 +1,67 @@
+<aside id="left-panel" class="left-panel" style="background: black">
+    <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
+        <div id="main-menu" class="main-menu collapse navbar-collapse" style="background: black">
+            <ul class="nav navbar-nav">
+                <li class="active" style="background: black" >
+                    <a href="{% url 'dashboard' %}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                </li>
+                <li class="menu-title" style="color: white">Meu estoque</li><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Responsável entrega</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-supplier' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'supplier-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Colaborador</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-buyer' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'buyer-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-calendar"></i>Setor</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-season' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'season-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tags"></i>Categoria</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-drop' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'drop-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Produto</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-product' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'product-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-shopping-cart"></i>Pedidos</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-order' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'order-list' %}">Ver cadastrados</a></li>
+                    </ul>
+                </li>
+
+                {% comment %} <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-truck"></i>Entradas de Produtos</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-delivery' %}">Novo</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'delivery-list' %}">Reposição de estoque</a></li>
+                    </ul>
+                </li> {% endcomment %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>
