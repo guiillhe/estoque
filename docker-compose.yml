@@ -7,7 +7,7 @@ services:
       - "8090:8090"
     environment:
       - DEBUG=False
-      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - ALLOWED_HOSTS=*,web
       - SECRET_KEY=k2z9po4i#n+1p(^ny1el2c!om(^-l+_%&ob0azk0-ike*-)81e
     volumes:
       - ./:/app
@@ -15,6 +15,7 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
+             python create_superuser_env.py &&
              gunicorn --bind 0.0.0.0:8090 --workers 4 inventory.wsgi:application"
     restart: unless-stopped
 

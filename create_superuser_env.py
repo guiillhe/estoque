@@ -8,10 +8,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'seu_projeto.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inventory.settings')
 django.setup()
 
-from django.contrib.auth.models import User
+from users.models import User
 
 def create_superuser_from_env():
     """Cria superuser a partir de variáveis de ambiente"""
