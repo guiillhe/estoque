@@ -130,3 +130,5 @@ dmypy.json
 
 # Editor
 .vscode/
+
+create_superuser_env.py

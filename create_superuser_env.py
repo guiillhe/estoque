@@ -21,7 +21,7 @@ def create_superuser_from_env():
     
     if not password:
         print('❌ Erro: Senha não definida no .env')
-        sys.exit(1)
+        
     
     if not User.objects.filter(username=username).exists():
         User.objects.create_superuser(
