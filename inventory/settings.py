@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://estoque.guilhermearaujo.cloud',
+    'https://www.estoque.guilhermearaujo.cloud',
+]
 
 # Application definition
 
