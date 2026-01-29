@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Count
+from datetime import datetime
 
 
 from users.models import User
@@ -60,43 +61,46 @@ class SupplierListView(ListView):
 # Buyer views
 @login_required(login_url='login')
 def create_buyer(request):
+
     forms = BuyerForm()
     if request.method == 'POST':
         forms = BuyerForm(request.POST)
         if forms.is_valid():
-            name = forms.cleaned_data['name']
-            address = forms.cleaned_data['address']
-            email = forms.cleaned_data['email']
-            username = forms.cleaned_data['username']
-            password = forms.cleaned_data['password']
-            retype_password = forms.cleaned_data['retype_password']
-            function = forms.cleaned_data['function']
-            salary = forms.cleaned_data['salary']
             cpf = forms.cleaned_data['cpf']
+            cleaned_cpf = ''.join(filter(str.isdigit, cpf))
+
+            name = forms.cleaned_data['name']
+            address = 'nao_informado'
+            email = forms.cleaned_data['email']
+            username = cleaned_cpf
+            password = 'Trotsky@123'  # Senha padrão
+            function = forms.cleaned_data['function']
+            salary = 0.01
+            cpf = cleaned_cpf
             pis = forms.cleaned_data['pis']
             rg = forms.cleaned_data['rg']
             nascimento = forms.cleaned_data['nascimento']
-            estado_civil = forms.cleaned_data['estado_civil']
-            escolaridade = forms.cleaned_data['escolaridade']
+            estado_civil = 'solteiro'
+            escolaridade = 'nao_informado'
             setor= forms.cleaned_data['setor']
    
 
-            if password == retype_password:
-                user = User.objects.create_user(username=username, password=password, email=email, is_buyer=True)
-                Buyer.objects.create(user=user,
-                                     name=name,
-                                     address=address,
-                                     function=function,
-                                     salary=salary,
-                                     cpf=cpf,
-                                     pis=pis,
-                                     rg=rg,
-                                     nascimento=nascimento,
-                                     estado_civil=estado_civil,
-                                     escolaridade=escolaridade,
-                                     setor=setor
-                                     )
-                return redirect('buyer-list')
+            
+            user = User.objects.create_user(username=username, password=password, email=email, is_buyer=True)
+            Buyer.objects.create(user=user,
+                                    name=name,
+                                    address=address,
+                                    function=function,
+                                    salary=salary,
+                                    cpf=cpf,
+                                    pis=pis,
+                                    rg=rg,
+                                    nascimento=nascimento,
+                                    estado_civil=estado_civil,
+                                    escolaridade=escolaridade,
+                                    setor=setor
+                                    )
+            return redirect('buyer-list')
     context = {
         'form': forms
     }
@@ -116,47 +120,53 @@ def delete_buyer(request, pk):
 
 def edit_buyer(request, pk):
     buyer = Buyer.objects.get(id=pk)
+    exclude_fields=['retype_password','salary', 'address', 'password','estado_civil','escolaridade']
+
     if request.method == 'POST':
               
-        forms = EditBuyerForm(request.POST)
+        forms = EditBuyerForm(request.POST, exclude_fields=exclude_fields)
         
         if forms.is_valid():
+            cpf = forms.cleaned_data['cpf']
+            cleaned_cpf = ''.join(filter(str.isdigit, cpf))
             buyer.user.name = forms.cleaned_data['name']
-            buyer.address = forms.cleaned_data['address']
+            buyer.address = 'nao_informado'
             buyer.user.email = forms.cleaned_data['email']
             buyer.function = forms.cleaned_data['function']
-            buyer.salary = forms.cleaned_data['salary']
-            buyer.cpf = forms.cleaned_data['cpf']
+            buyer.salary = 0.01
+            buyer.cpf = cleaned_cpf
             buyer.pis = forms.cleaned_data['pis']
             buyer.rg = forms.cleaned_data['rg']
             buyer.nascimento = forms.cleaned_data['nascimento']
-            buyer.estado_civil = forms.cleaned_data['estado_civil']
-            buyer.escolaridade = forms.cleaned_data['escolaridade']        
+            buyer.estado_civil = 'solteiro'
+            buyer.escolaridade = 'nao_informado'      
             buyer.setor = forms.cleaned_data['setor']
             buyer.user.save() 
             buyer.save()
-            print("ENTROU NO POST")
+            
             return redirect('buyer-list')
         else:
             print(forms.errors)
-            
+    else:
+        data_banco = str(buyer.nascimento)
+        data_objeto = datetime.strptime(data_banco, "%Y-%m-%d")
+        data_formatada = data_objeto.strftime("%Y-%m-%d")
+        print(data_formatada)
 
+        forms = EditBuyerForm(             
+            exclude_fields=exclude_fields,       
+            initial={
+                'name': buyer.name,       
+                'email': buyer.user.email,    
+                'function': buyer.function,         
+                'cpf': buyer.cpf,
+                'pis': buyer.pis,
+                'rg': buyer.rg,
+                'nascimento': data_formatada,
+                'setor': buyer.setor,
+            }
+        )
     
-    forms = EditBuyerForm(        
-        exclude_fields=['retype_password', 'password'],
-        initial={
-        'name': buyer.name,
-        'address': buyer.address,
-        'email': buyer.user.email,    
-        'function': buyer.function,
-        'salary': buyer.salary,
-        'cpf': buyer.cpf,
-        'pis': buyer.pis,
-        'rg': buyer.rg,
-        'nascimento': buyer.nascimento,
-        'estado_civil': buyer.estado_civil,
-        'escolaridade': buyer.escolaridade,
-    })
     context = {
         'buyer': buyer,
         'form': forms

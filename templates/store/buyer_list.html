@@ -33,8 +33,9 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
-            <div class="card-body">
-                <h4 class="box-title">Lista de colaboradores </h4>                
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="box-title">Lista de colaboradores </h4>
+                <a href="{% url 'create-buyer' %}"><button class="btn btn-success btn-sm">Adicionar Colaborador</button></a>                
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -42,8 +43,7 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Nome</th>
-                                <th>Endereço</th>
+                                <th>Nome</th>                                
                                 <th>Email</th>
                                 <th>Funcao</th>
                                 <th>Setor</th>
@@ -56,8 +56,7 @@
                             {% for buyer in buyer %}                            
                             <tr>
                                 <td class="serial">{{ buyer.id }}</td>
-                                <td>{{ buyer.name }}</td>
-                                <td>{{ buyer.address }}</td>
+                                <td>{{ buyer.name }}</td>                                
                                 <td>{{ buyer.user.email }}</td>
                                 <td>{{ buyer.function }}</td>
                                 <td>{{ buyer.setor }}</td>

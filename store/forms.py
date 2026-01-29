@@ -65,15 +65,7 @@ class BuyerForm(forms.Form):
         'placeholder': 'Nome completo',
     }))
 
-    address = forms.CharField(
-        label="Endereço",
-        widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'id': 'address',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite o endereço',
-        'placeholder': 'Endereço',
-    }))
+    
     email = forms.CharField(
         label="Email",
         widget=forms.EmailInput(attrs={
@@ -83,33 +75,8 @@ class BuyerForm(forms.Form):
         'data-val-required': 'Por favor digite o email',
         'placeholder': 'exemplo@Email.com',
     }))
-    username = forms.CharField(
-        label="Nome de usuário",
-        widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'id': 'username',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite o nome de usuário',
-        'placeholder': 'Nome de usuário',
-    }))
-    password = forms.CharField(
-        label="Senha",
-        widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'id': 'password',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite a senha',
-        'placeholder': 'Senha',
-    }))
-    retype_password = forms.CharField(
-        label="Redigite a senha",
-        widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'id': 'retype_password',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite a senha novamente',
-        'placeholder': 'Redigite a senha',
-    }))
+    
+    
     function = forms.CharField(
         label="Função",
         widget=forms.TextInput(attrs={
@@ -119,15 +86,7 @@ class BuyerForm(forms.Form):
         'data-val-required': 'Por favor digite a função',
         'placeholder': 'Função',
     }))
-    salary = forms.DecimalField(
-        label="Salário",
-        widget=forms.NumberInput(attrs={
-        'class': 'form-control',
-        'id': 'salary',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite o salário',
-        'placeholder': 'Salário',
-    }))
+    
     cpf = forms.CharField(
         label="CPF",
         widget=forms.TextInput(attrs={
@@ -165,34 +124,9 @@ class BuyerForm(forms.Form):
         'type': 'date',
         'placeholder': 'Data de Nascimento',
     }))
-    estado_civil = forms.ChoiceField(
-        label="Estado Civil",
-        choices=[
-        ('solteiro', 'Solteiro(a)'),
-        ('casado', 'Casado(a)'),
-        ('divorciado', 'Divorciado(a)'),
-        ('viuvo', 'Viúvo(a)'),
-        ('separado', 'Separado(a)'),
-        ('uniao_estavel', 'União Estável'),
-        ('outro', 'Outro'),
-    ], widget=forms.Select(
         
-        attrs={
-        'class': 'form-control',
-        'id': 'estado_civil',
-        'data-val': 'true',
-        'data-val-required': 'Por favor selecione o estado civil',
-        
-    }))
-    escolaridade = forms.CharField(
-        label="Escolaridade",
-        widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'id': 'escolaridade',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite a escolaridade',
-        'placeholder': 'Escolaridade',
-    }))
+   
+   
     setor = forms.ModelChoiceField(
         label="Setor",
         queryset=Season.objects.all(),
@@ -221,16 +155,7 @@ class EditBuyerForm(forms.Form):
         'data-val-required': 'Por favor digite o nome',
         'placeholder': 'Nome completo',
     }))
-
-    address = forms.CharField(
-        label="Endereço",
-        widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'id': 'address',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite o endereço',
-        'placeholder': 'Endereço',
-    }))
+   
     email = forms.CharField(
         label="Email",
         widget=forms.EmailInput(attrs={
@@ -269,16 +194,7 @@ class EditBuyerForm(forms.Form):
         'data-val': 'true',
         'data-val-required': 'Por favor digite a função',
         'placeholder': 'Função',
-    }))
-    salary = forms.DecimalField(
-        label="Salário",
-        widget=forms.NumberInput(attrs={
-        'class': 'form-control',
-        'id': 'salary',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite o salário',
-        'placeholder': 'Salário',
-    }))
+    }))    
     cpf = forms.CharField(
         label="CPF",
         widget=forms.TextInput(attrs={
@@ -316,34 +232,8 @@ class EditBuyerForm(forms.Form):
         'type': 'date',
         'placeholder': 'Data de Nascimento',
     }))
-    estado_civil = forms.ChoiceField(
-        label="Estado Civil",
-        choices=[
-        ('solteiro', 'Solteiro(a)'),
-        ('casado', 'Casado(a)'),
-        ('divorciado', 'Divorciado(a)'),
-        ('viuvo', 'Viúvo(a)'),
-        ('separado', 'Separado(a)'),
-        ('uniao_estavel', 'União Estável'),
-        ('outro', 'Outro'),
-    ], widget=forms.Select(
-        
-        attrs={
-        'class': 'form-control',
-        'id': 'estado_civil',
-        'data-val': 'true',
-        'data-val-required': 'Por favor selecione o estado civil',
-        
-    }))
-    escolaridade = forms.CharField(
-        label="Escolaridade",
-        widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'id': 'escolaridade',
-        'data-val': 'true',
-        'data-val-required': 'Por favor digite a escolaridade',
-        'placeholder': 'Escolaridade',
-    }))
+   
+    
     setor = forms.ModelChoiceField(
         label="Setor",
         queryset=Season.objects.all(),
