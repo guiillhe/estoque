@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Empresas{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Configurações</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li><a href="#">Configurações</a></li>
+                            <li class="active">Empresas</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="box-title">Lista de Empresas</h4>
+                <a href="{% url 'create-enterprise' %}"><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Adicionar Empresa</button></a>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Nome da Empresa</th>
+                                <th>Nº Contrato</th>
+                                <th>CNPJ</th>
+                                <th>Responsável</th>
+                                <th>Data de Criação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if enterprises %}
+                            {% for enterprise in enterprises %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td>{{ enterprise.name }}</td>
+                                <td>{{ enterprise.num_contrato }}</td>
+                                <td>{{ enterprise.cnpj }}</td>
+                                <td>{{ enterprise.responsavel.get_full_name|default:enterprise.responsavel.username }}</td>
+                                <td>{{ enterprise.created_date|date:"d/m/Y" }}</td>
+                                <td>
+                                    <a href="{% url 'enterprise_edit' enterprise.id %}"><button class="btn btn-primary btn-sm">Editar</button></a>
+                                    <a href="{% url 'delete-enterprise' enterprise.id %}" onclick="return confirm('Tem certeza que deseja excluir esta empresa?');"><button class="btn btn-danger btn-sm">Excluir</button></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td colspan="7" class="text-center">Nenhuma empresa cadastrada</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>
+</div>
+{% endblock content %}

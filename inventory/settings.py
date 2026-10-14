@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # local
     'apps.store.apps.StoreConfig',
     'apps.users.apps.UsersConfig',
+    'apps.enterprises.apps.EnterprisesConfig',
 ]
 
 MIDDLEWARE = [

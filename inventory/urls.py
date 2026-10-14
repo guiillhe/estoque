@@ -23,4 +23,5 @@ urlpatterns = [
     path('', dashboard, name='dashboard'),
     path('users/', include('apps.users.urls')),
     path('store/', include('apps.store.urls')),
+    path('enterprises/', include('apps.enterprises.urls')),
 ]

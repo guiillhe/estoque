@@ -61,6 +61,17 @@
                         <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'delivery-list' %}">Reposição de estoque</a></li>
                     </ul>
                 </li> {% endcomment %}
+
+                {% if user.is_superuser %}
+                <li class="menu-title" style="color: white">Configurações</li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Configurações</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-enterprise' %}">Nova Empresa</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'enterprise-list' %}">Lista de Empresas</a></li>
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

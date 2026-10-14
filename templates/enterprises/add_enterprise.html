@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Cadastrar Empresa{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Configurações</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                            <li><a href="{% url 'enterprise-list' %}">Empresas</a></li>
+                            <li class="active">Cadastrar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Cadastrar Nova Empresa</strong>
+            </div>
+            <div class="card-body">
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="{% url 'create-enterprise' %}" method="post" novalidate="novalidate">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+                            <div class="mt-4">
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
+                                    <span id="payment-button-amount">Salvar Empresa</span>
+                                </button>
+                                <a href="{% url 'enterprise-list' %}" class="btn btn-lg btn-secondary btn-block mt-2">
+                                    <span>Cancelar</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .card -->
+    </div><!--/.col-->
+</div>
+{% endblock content %}
