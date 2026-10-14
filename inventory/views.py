@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from store.models import Product, Supplier, Buyer, Order
+from apps.store.models import Product, Supplier, Buyer, Order
 
 @login_required(login_url='login')
 def dashboard(request):

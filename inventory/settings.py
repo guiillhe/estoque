@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # local
-    'store.apps.StoreConfig',
-    'users.apps.UsersConfig',
+    'apps.store.apps.StoreConfig',
+    'apps.users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

@@ -6,7 +6,7 @@ from django.db.models import Count
 from datetime import datetime
 
 
-from users.models import User
+from apps.users.models import User
 from .models import (
     Supplier,
     Buyer,

@@ -1,6 +1,5 @@
 from django.db import models
-
-from users.models import User
+from apps.users.models import User
 
 
 class Supplier(models.Model):
