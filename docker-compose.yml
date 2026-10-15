@@ -20,7 +20,7 @@ services:
     # --- LABELS DO TRAEFIK (ESSENCIAIS) ---
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.estoque.rule=Host(`estoque.guilhermearaujo.cloud`)"
+      - "traefik.http.routers.estoque.rule=Host(`estoque.rparaujo.com.br`)"
       - "traefik.http.routers.estoque.entrypoints=websecure"
       - "traefik.http.routers.estoque.tls.certresolver=mytlschallenge"
       - "traefik.http.services.estoque.loadbalancer.server.port=8090"
