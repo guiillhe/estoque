@@ -31,8 +31,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://estoque.guilhermearaujo.cloud',
-    'https://www.estoque.guilhermearaujo.cloud',
+    'https://estoque.rparaujo.com.br',
+    'https://www.estoque.rparaujo.com.br',
 ]
 
 # Application definition
