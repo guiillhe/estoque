@@ -6,4 +6,6 @@ urlpatterns = [
     path('enterprise-list/', views.EnterpriseListView.as_view(), name='enterprise-list'),
     path('edit-enterprise/<int:pk>/', views.edit_enterprise, name='enterprise_edit'),
     path('delete-enterprise/<int:pk>/', views.delete_enterprise, name='delete-enterprise'),
+    path('create-admin/', views.create_enterprise_admin, name='create-enterprise-admin'),
 ]
+

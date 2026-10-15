@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models import Enterprise
-from .forms import EnterpriseForm
+from .forms import EnterpriseForm, EnterpriseAdminForm
+
 
 
 def superuser_required(view_func):
@@ -64,3 +65,18 @@ def delete_enterprise(request, pk):
     enterprise = get_object_or_404(Enterprise, id=pk)
     enterprise.delete()
     return redirect('enterprise-list')
+
+
+@superuser_required
+def create_enterprise_admin(request):
+    forms = EnterpriseAdminForm()
+    if request.method == 'POST':
+        forms = EnterpriseAdminForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            return redirect('enterprise-list')
+    context = {
+        'form': forms
+    }
+    return render(request, 'enterprises/add_admin.html', context)
+

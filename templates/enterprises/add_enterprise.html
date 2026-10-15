@@ -60,4 +60,28 @@
         </div> <!-- .card -->
     </div><!--/.col-->
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var check = document.getElementById('create_new_admin');
+    var adminFields = document.querySelectorAll('#div_id_admin_name, #div_id_admin_username, #div_id_admin_email, #div_id_admin_password, #div_id_admin_confirm_password');
+    var respField = document.getElementById('div_id_responsavel');
+
+    function toggleFields() {
+        if (!check) return;
+        var show = check.checked;
+        adminFields.forEach(function(el) {
+            if (el) el.style.display = show ? 'block' : 'none';
+        });
+        if (respField) {
+            respField.style.display = show ? 'none' : 'block';
+        }
+    }
+
+    if (check) {
+        check.addEventListener('change', toggleFields);
+        toggleFields();
+    }
+});
+</script>
 {% endblock content %}

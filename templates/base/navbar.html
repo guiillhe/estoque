@@ -4,7 +4,7 @@
     <div class="top-left">
         <div class="navbar-header" style="background: black">
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-            <a class="navbar-brand" style="color: white">Sistema de estoque </a>
+            <a class="navbar-brand" style="color: white">Sistema de estoque {% if request.user.enterprise %}<span class="badge badge-light text-dark ml-2" style="font-size: 13px; vertical-align: middle;">{{ request.user.enterprise.name }}</span>{% endif %}</a>
             
         </div>
     </div>
@@ -142,8 +142,13 @@
                 </a>
 
                 <div class="user-menu dropdown-menu" style="background: skyblue">
-
-
+                    <div class="px-3 py-1 text-dark font-weight-bold" style="font-size: 14px;">{{ request.user.get_full_name|default:request.user.username }}</div>
+                    {% if request.user.enterprise %}
+                        <div class="px-3 pb-1 text-dark small" style="font-size: 12px;"><i class="fa fa-building-o"></i> {{ request.user.enterprise.name }}</div>
+                    {% elif request.user.is_superuser %}
+                        <div class="px-3 pb-1 text-dark small" style="font-size: 12px;"><i class="fa fa-shield"></i> Superusuário</div>
+                    {% endif %}
+                    <div class="dropdown-divider"></div>
                     <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Logout</a>
                 </div>
             </div>

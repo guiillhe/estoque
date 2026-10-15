@@ -136,16 +136,26 @@ class BuyerForm(forms.Form):
             'data-val': 'true',
             'data-val-required': 'Por favor selecione o setor',
         }))    
-    
+
+    def __init__(self, *args, **kwargs):
+        enterprise = kwargs.pop('enterprise', None)
+        super().__init__(*args, **kwargs)
+        if enterprise:
+            self.fields['setor'].queryset = Season.objects.filter(enterprise=enterprise)
+
 
 class EditBuyerForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        exclude_fields = kwargs.pop('exclude_fields', [])  # Extrair aqui
+        exclude_fields = kwargs.pop('exclude_fields', [])
+        enterprise = kwargs.pop('enterprise', None)
         super().__init__(*args, **kwargs)
         
         for field in exclude_fields:
             if field in self.fields:
-                del self.fields[field]    
+                del self.fields[field]
+        if enterprise and 'setor' in self.fields:
+            self.fields['setor'].queryset = Season.objects.filter(enterprise=enterprise)
+
     name = forms.CharField(
         label="Nome completo",  
         widget=forms.TextInput(attrs={
@@ -278,33 +288,39 @@ class ProductForm(forms.ModelForm):
         }
 
 
+from django.forms.models import BaseInlineFormSet
+
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ["buyer", ]
 
         labels = {
-            'buyer': 'Colaborador',  # ✅ Label definido aqui
+            'buyer': 'Colaborador',
         }
 
         widgets = {
             'buyer': forms.Select(
-                attrs={'class': 'form-control', 'id': 'buyer','data-live-search': 'true'}),
-            }
+                attrs={'class': 'form-control', 'id': 'buyer', 'data-live-search': 'true'}),
+        }
     
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)        
-        
-    
+        enterprise = kwargs.pop('enterprise', None)
+        super().__init__(*args, **kwargs)
+        if enterprise:
+            self.fields['buyer'].queryset = Buyer.objects.filter(enterprise=enterprise)
+
 
 class OrderItemForm(forms.ModelForm):
     product = forms.ModelChoiceField(
         label="Produto",
         queryset=Product.objects.filter(is_active=True),
-         widget=forms.Select(attrs={
-        'class': 'form-select product-select',
-        'data-live-search': 'true'
-    }))
+        widget=forms.Select(attrs={
+            'class': 'form-select product-select',
+            'data-live-search': 'true'
+        })
+    )
 
     quantity = forms.IntegerField(
         label="Quantidade",
@@ -318,26 +334,54 @@ class OrderItemForm(forms.ModelForm):
 
     class Meta:
         model = OrderItem
-        fields = ['product', 'quantity']    
+        fields = ['product', 'quantity']
+
+    def __init__(self, *args, **kwargs):
+        enterprise = kwargs.pop('enterprise', None)
+        super().__init__(*args, **kwargs)
+        if enterprise:
+            self.fields['product'].queryset = Product.objects.filter(enterprise=enterprise, is_active=True)
 
 
 from django.forms import inlineformset_factory
+
+
+class BaseOrderItemFormSet(BaseInlineFormSet):
+    def __init__(self, *args, **kwargs):
+        self.enterprise = kwargs.pop('enterprise', None)
+        super().__init__(*args, **kwargs)
+
+    def _construct_form(self, i, **kwargs):
+        form = super()._construct_form(i, **kwargs)
+        if self.enterprise:
+            form.fields['product'].queryset = Product.objects.filter(enterprise=self.enterprise, is_active=True)
+        return form
+
 
 OrderItemFormSet = inlineformset_factory(
     Order,
     OrderItem,
     form=OrderItemForm,
-    extra=1,  # Quantidade de forms vazios para adicionar
+    formset=BaseOrderItemFormSet,
+    extra=1,
     can_delete=True,
     fields=['product', 'quantity']
 )
 
+
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
-        fields = '__all__'
+        fields = ['order', 'courier_name']
 
         widgets = {
             'order': forms.Select(attrs={'class': 'form-control', 'id': 'order'}),
             'courier_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'courier_name'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        enterprise = kwargs.pop('enterprise', None)
+        super().__init__(*args, **kwargs)
+        if enterprise:
+            self.fields['order'].queryset = Order.objects.filter(enterprise=enterprise)
+
