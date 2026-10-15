@@ -1,0 +1,325 @@
+/* ==========================================================================
+   custom-mobile.css
+   Estilos específicos para usabilidade e responsividade Mobile sem afetar Desktop
+   Documentado em: raciocinio.md
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Garantia de exibição da coluna serial (#) no Desktop
+   -------------------------------------------------------------------------- */
+.order-table .serial,
+table.table td.serial,
+table.table th.serial {
+    display: table-cell !important;
+    font-weight: 600;
+    color: #2b2d42;
+    text-align: center;
+    width: 60px;
+}
+
+.subid-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #343a40;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   2. Barra de Busca de Colaboradores (Desktop & Mobile)
+   -------------------------------------------------------------------------- */
+.buyer-search-box {
+    margin-bottom: 15px;
+}
+
+.buyer-search-box .input-group {
+    max-width: 100%;
+}
+
+.buyer-search-box .form-control {
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #ced4da;
+    font-size: 14px;
+}
+
+.buyer-search-box .btn-search {
+    border-radius: 0 6px 6px 0;
+}
+
+.buyer-search-box .btn-clear {
+    margin-left: 6px;
+    border-radius: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Visualização Mobile de Colaboradores (Cards)
+   Exibida apenas em telas menores que 768px (d-md-none)
+   -------------------------------------------------------------------------- */
+.mobile-buyer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 10px 15px 10px;
+}
+
+.buyer-mobile-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.buyer-mobile-card:active {
+    transform: scale(0.99);
+}
+
+.buyer-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.buyer-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.buyer-card-title .buyer-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.buyer-subid-pill {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.buyer-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.buyer-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+}
+
+.buyer-card-row .row-label {
+    color: #64748b;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.buyer-card-row .row-label i {
+    width: 14px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.buyer-card-row .row-value {
+    color: #1e293b;
+    font-weight: 600;
+    text-align: right;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+.buyer-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.buyer-card-actions .btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+    min-height: 38px; /* Touch target acessível */
+}
+
+/* --------------------------------------------------------------------------
+   4. Adaptações Globais de Header e Navegação Mobile (< 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    /* Mantém cabeçalho escuro uniforme, sem sobreposição branca */
+    .right-panel header.header {
+        height: auto !important;
+        min-height: 58px;
+        background: #000000 !important;
+        position: sticky !important;
+        top: 0;
+        z-index: 1030;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .right-panel header.header .top-left {
+        position: static !important;
+        float: none !important;
+        width: auto !important;
+        background: transparent !important;
+        border-bottom: none !important;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .right-panel header.header .top-right {
+        float: none !important;
+        width: auto !important;
+        background: transparent !important;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .right-panel .navbar-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent !important;
+    }
+
+    .right-panel .menutoggle {
+        float: none !important;
+        color: #ffffff !important;
+        font-size: 20px;
+        padding: 6px 10px;
+        margin: 0;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .right-panel .navbar-brand {
+        color: #ffffff !important;
+        font-size: 14px !important;
+        width: auto !important;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .right-panel .navbar-brand .badge {
+        font-size: 11px !important;
+        padding: 3px 6px;
+    }
+
+    .header-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .right-panel .header-left {
+        display: none !important;
+    }
+
+    .user-area {
+        float: none !important;
+        margin: 0;
+    }
+
+    .user-area .user-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* Menu lateral mobile (slide drawer) */
+    aside.left-panel {
+        position: fixed !important;
+        top: 58px !important;
+        left: 0 !important;
+        width: 270px !important;
+        max-width: 85vw !important;
+        height: calc(100vh - 58px) !important;
+        z-index: 1040 !important;
+        background: #000000 !important;
+        overflow-y: auto !important;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Ajuste de espaçamento geral de conteúdo no mobile */
+    .content {
+        padding: 12px 10px !important;
+    }
+
+    .card {
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .card-body {
+        padding: 14px !important;
+    }
+
+    .breadcrumbs {
+        padding: 8px 12px !important;
+    }
+
+    .breadcrumbs .page-title h1 {
+        font-size: 18px;
+    }
+
+    /* Aumenta inputs para evitar auto-zoom no Safari iOS */
+    input.form-control,
+    select.form-control,
+    textarea.form-control {
+        font-size: 16px !important;
+    }
+
+    /* Botões confortáveis para touch */
+    .btn {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    /* Cabeçalho da listagem em mobile: organiza título, botão e busca */
+    .buyer-header-container {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px;
+    }
+
+    .buyer-header-container .btn-add-buyer {
+        width: 100%;
+        text-align: center;
+    }
+}

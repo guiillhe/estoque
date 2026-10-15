@@ -40,7 +40,7 @@
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                     <div class="card-body">
-                        <p>Edite os dados do colaborador {{buyer.id}} e clique em salvar.</p>
+                        <p>Edite os dados do colaborador #{% if buyer.sub_id %}{{ buyer.sub_id }}{% else %}{{ buyer.id }}{% endif %} ({{ buyer.name }}) e clique em salvar.</p>
                         <form action="{% url 'buyer_edit' buyer.id %}" method="post" novalidate="novalidate">
                             {% csrf_token %}
                             <div class="form-group">

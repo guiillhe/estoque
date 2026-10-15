@@ -66,7 +66,16 @@ jQuery(document).ready(function($) {
 			 
 	}); 
 
-	 
+	// Fechar menu mobile ao clicar fora
+	$(document).on('click', function(event) {
+		if ($(window).width() < 760) {
+			if (!$(event.target).closest('#left-panel, #menuToggle').length) {
+				if ($('#left-panel').is(':visible')) {
+					$('#left-panel').slideUp();
+				}
+			}
+		}
+	});
 	$(".menu-item-has-children.dropdown").each(function() {
 		$(this).on('click', function() {
 			var $temp_text = $(this).children('.dropdown-toggle').html();
